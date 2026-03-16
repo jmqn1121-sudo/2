@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>복기, — 법무법인 여온 부동산 법률</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Noto+Serif+KR:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+
+/*
+  ── 복기, by 여온 ──────────────────────────
+  Aman / Sotheby's / Bulgari 라이트 버전
+
+  배경   #F4EFE6   오래된 계약서 크림
+  텍스트 #1A1824   냉철한 딥잉크
+  골드   #8C6B28   침착한 딥골드
+  ─────────────────────────────────────────
+  원칙
+  ① 텍스트는 항상 선명하게 — opacity 85% 이상
+  ② 카드 없음 — 배경 미세 차이와 선으로만
+  ③ 여백이 고급을 만든다
+  ④ 타이포그래피가 전부
+*/
+
+:root{
+  --bg:     #F4EFE6;
+  --bg2:    #EDE6DB;
+  --bg3:    #E5DDD0;
+  --bg-inv: #1A1824;
+  --ink:    #1A1824;
+  --ink2:   #2C2838;
+  --text:   #2A2535;
+  --sub:    #6B6278;
+  --dim:    #9B94A4;
+  --gold:   #8C6B28;
+  --gold2:  #B08A3C;
+  --gold3:  #C9A85C;
+  --line:   rgba(140,107,40,.14);
+  --line2:  rgba(140,107,40,.08);
+}
+
+body{
+  font-family:'Noto Serif KR',serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  min-height:100vh;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* 미세 페이퍼 텍스처 */
+body::before{
+  content:'';position:fixed;inset:0;
+  opacity:.025;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:22px 7vw;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(244,239,230,.0);
+  transition:background .4s,border-color .4s,box-shadow .4s;
+}
+nav.on{
+  background:rgba(244,239,230,.96);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(16px);
+  box-shadow:0 1px 24px rgba(26,24,36,.05);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:18px;font-weight:400;letter-spacing:.13em;
+  color:var(--ink);
+}
+.nav-logo em{font-style:italic;color:var(--gold)}
+.nav-tel{
+  font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2px;
+  color:var(--sub);text-decoration:none;transition:color .22s;
+}
+.nav-tel:hover{color:var(--ink)}
+
+/* ── 공통 ── */
+section{position:relative;z-index:1}
+.wrap{max-width:980px;margin:0 auto;padding:0 7vw}
+.sec{padding:128px 0 100px}
+.divide{border-top:1px solid var(--line2)}
+
+/* reveal */
+.rv{
+  opacity:0;transform:translateY(14px);
+  transition:opacity 1.0s cubic-bezier(.16,1,.3,1),
+             transform 1.0s cubic-bezier(.16,1,.3,1);
+}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}
+.d3{transition-delay:.36s}.d4{transition-delay:.50s}
+
+/* 레이블 */
+.lbl{
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:6px;text-transform:uppercase;
+  color:var(--gold);display:block;margin-bottom:18px;
+}
+
+/* 섹션 h2 */
+.h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(34px,4.8vw,58px);
+  font-weight:400;color:var(--ink);
+  line-height:1.12;margin-bottom:18px;word-break:keep-all;
+}
+.h2 em{font-style:italic;color:var(--gold2)}
+
+/* 리드 */
+.lead{
+  font-size:clamp(15px,1.6vw,18px);font-weight:300;
+  color:var(--sub);line-height:2.0;
+  max-width:480px;word-break:keep-all;
+}
+.lead strong{color:var(--text);font-weight:400}
+
+/* 얇은 선 */
+.rule{height:1px;background:var(--line2);margin:56px 0}
+
+/* ══════════════════════════════
+   ❶ HERO
+══════════════════════════════ */
+.hero{
+  min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 7vw 13vh;
+  position:relative;overflow:hidden;
+  /* 히어로만 어둡게 — 임팩트 */
+  background:var(--bg-inv);
+}
+/* 하단 페이드 → 다음 섹션으로 자연스럽게 */
+.hero-fade{
+  position:absolute;bottom:0;left:0;right:0;height:180px;
+  background:linear-gradient(to top,var(--bg-inv),transparent);
+  pointer-events:none;
+}
+/* 상단 페이드 */
+.hero-top{
+  position:absolute;top:0;left:0;right:0;height:160px;
+  background:linear-gradient(to bottom,rgba(26,24,36,.8),transparent);
+  pointer-events:none;
+}
+
+/* 히어로 내 색상 오버라이드 */
+.hero .lbl{color:rgba(200,168,92,.65)}
+.hero .h2{color:rgba(244,239,230,.96)}
+.hero .h2 em{color:rgba(200,168,92,.90)}
+.hero .lead{color:rgba(244,239,230,.60)}
+.hero .lead strong{color:rgba(244,239,230,.90)}
+
+.h-eye{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:6px;
+  text-transform:uppercase;color:rgba(244,239,230,.32);
+  margin-bottom:44px;
+  opacity:0;animation:rise .9s .06s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+/* ── 히어로 메시지 ── */
+.h-msg{
+  max-width:780px;margin-bottom:28px;
+  opacity:0;animation:rise 1.1s .18s cubic-bezier(.16,1,.3,1) forwards;
+}
+.h-line1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(42px,6.8vw,96px);
+  font-weight:300;font-style:italic;
+  color:rgba(244,239,230,.96);
+  line-height:1.12;letter-spacing:.012em;
+  word-break:keep-all;display:block;
+}
+.h-line2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,4.2vw,58px);
+  font-weight:300;color:rgba(244,239,230,.50);
+  line-height:1.20;letter-spacing:.010em;
+  word-break:keep-all;display:block;margin-top:6px;
+}
+
+/* 서명 */
+.h-sig{
+  display:flex;align-items:center;gap:13px;margin-bottom:36px;
+  opacity:0;animation:rise .85s .38s cubic-bezier(.16,1,.3,1) forwards;
+}
+.h-sig-bar{width:18px;height:1px;background:rgba(200,168,92,.38);flex-shrink:0}
+.h-sig-txt{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(13px,1.3vw,17px);font-weight:400;letter-spacing:.10em;
+  color:rgba(200,168,92,.68);
+}
+.h-sig-txt em{font-style:italic;opacity:.7}
+
+/* 공감 카피 */
+.h-copy{
+  font-size:clamp(15px,1.6vw,18px);font-weight:300;
+  color:rgba(244,239,230,.62);line-height:2.05;
+  max-width:420px;word-break:keep-all;
+  opacity:0;animation:rise .9s .52s cubic-bezier(.16,1,.3,1) forwards;
+}
+.h-copy strong{color:rgba(244,239,230,.92);font-weight:400}
+
+/* 긴박도 버튼 */
+.urg-row{
+  margin-top:28px;display:flex;gap:2px;flex-wrap:wrap;
+  opacity:0;animation:rise .9s .65s cubic-bezier(.16,1,.3,1) forwards;
+}
+.urg-btn{
+  font-family:'DM Mono',monospace;font-size:8px;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:9px 16px;cursor:pointer;
+  border:1px solid rgba(244,239,230,.14);
+  background:transparent;color:rgba(244,239,230,.38);
+  transition:all .24s;white-space:nowrap;
+}
+.urg-btn:hover,.urg-btn.on{
+  color:rgba(244,239,230,.92);
+  border-color:rgba(200,168,92,.35);
+  background:rgba(200,168,92,.07);
+}
+.urg-btn.r{border-left:2px solid rgba(195,65,40,.50)}
+.urg-btn.a{border-left:2px solid rgba(190,150,22,.52)}
+.urg-btn.s{border-left:2px solid rgba(60,115,188,.40)}
+
+/* 배지 */
+.h-badges{
+  margin-top:14px;display:flex;gap:2px;flex-wrap:wrap;
+  opacity:0;animation:rise .9s .78s cubic-bezier(.16,1,.3,1) forwards;
+}
+.badge{
+  font-family:'DM Mono',monospace;font-size:7px;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(244,239,230,.28);
+  border:1px solid rgba(244,239,230,.08);padding:5px 11px;white-space:nowrap;
+}
+
+/* CTA */
+.h-action{
+  margin-top:28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  opacity:0;animation:rise .9s .90s cubic-bezier(.16,1,.3,1) forwards;
+}
+/* 밝은 버튼 — 히어로 안에서 */
+.btn-light{
+  display:inline-flex;flex-direction:column;gap:4px;
+  text-decoration:none;
+  background:rgba(244,239,230,.96);
+  padding:17px 38px;transition:all .26s;
+}
+.btn-light:hover{
+  background:#fff;transform:translateY(-2px);
+  box-shadow:0 14px 48px rgba(0,0,0,.30);
+}
+.btn-light .bl-label{
+  font-family:'DM Mono',monospace;font-size:8px;
+  letter-spacing:4px;text-transform:uppercase;color:var(--sub);
+}
+.btn-light .bl-num{
+  font-family:'DM Mono',monospace;
+  font-size:clamp(16px,2vw,22px);letter-spacing:2px;
+  color:var(--ink);font-weight:400;
+}
+.btn-note{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;
+  text-transform:uppercase;color:rgba(244,239,230,.30);
+  line-height:1.85;word-break:keep-all;
+}
+.btn-note strong{display:block;color:rgba(244,239,230,.45);font-weight:300}
+
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── MARQUEE ── */
+.strip{
+  position:relative;z-index:1;overflow:hidden;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:var(--bg2);
+}
+.strip-track{
+  display:flex;white-space:nowrap;
+  animation:mq 40s linear infinite;padding:11px 0;
+}
+.strip-track span{
+  font-family:'DM Mono',monospace;font-size:8px;
+  letter-spacing:4px;text-transform:uppercase;
+  color:var(--dim);padding:0 28px;flex-shrink:0;
+}
+.strip-track span.dot{color:var(--line);padding:0 4px}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ══════════════════════════════
+   ❷ 복기란
+══════════════════════════════ */
+.two-col{
+  margin-top:64px;display:grid;
+  grid-template-columns:1fr 1fr;gap:72px;
+}
+.tc-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(20px,2.4vw,30px);
+  font-weight:300;font-style:italic;
+  color:var(--ink);line-height:1.70;
+  margin-bottom:24px;word-break:keep-all;
+}
+.tc-quote em{font-style:normal;font-weight:600;color:var(--gold2)}
+.tc-body{
+  font-size:clamp(14px,1.5vw,17px);font-weight:300;
+  color:var(--sub);line-height:2.05;
+  border-left:2px solid rgba(140,107,40,.18);
+  padding-left:20px;word-break:keep-all;
+}
+.tc-body strong{color:var(--text);font-weight:400}
+
+/* 수순 — 선으로만 */
+.steps{display:flex;flex-direction:column}
+.step{
+  display:grid;grid-template-columns:34px 1fr;
+  padding:15px 0;border-bottom:1px solid var(--line2);
+}
+.step:first-child{border-top:1px solid var(--line2)}
+.step:last-child{border-bottom:none}
+.step:hover{background:rgba(140,107,40,.03)}
+.step-n{
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:2px;color:var(--gold);opacity:.55;
+  padding-top:3px;
+}
+.step-lbl{
+  font-family:'DM Mono',monospace;font-size:8px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--dim);margin-bottom:5px;
+}
+.step-txt{
+  font-size:clamp(13px,1.4vw,15px);font-weight:300;
+  color:var(--sub);line-height:1.85;word-break:keep-all;
+}
+.step-txt strong{color:var(--text);font-weight:400}
+
+/* ══════════════════════════════
+   ❸ 위기감 + 왜
+══════════════════════════════ */
+
+/* 계약서 인용 — 어두운 반전 */
+.dark-quote{
+  margin-top:64px;padding:60px 56px;
+  background:var(--bg-inv);
+  position:relative;overflow:hidden;
+}
+.dark-quote::before{
+  content:'';position:absolute;top:0;left:48px;right:48px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold2) 30%,var(--gold3) 50%,var(--gold2) 70%,transparent);
+  opacity:.35;
+}
+.dq-lbl{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:5px;
+  text-transform:uppercase;color:rgba(244,239,230,.28);margin-bottom:20px;
+}
+.dq-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(20px,3.2vw,44px);
+  font-weight:300;font-style:italic;
+  color:rgba(244,239,230,.58);
+  line-height:1.60;margin-bottom:14px;word-break:keep-all;
+}
+.dq-text em{font-style:normal;font-weight:600;color:rgba(244,239,230,.92)}
+.dq-sub{
+  font-size:clamp(14px,1.5vw,17px);font-weight:300;
+  color:rgba(244,239,230,.38);line-height:1.90;word-break:keep-all;
+}
+
+/* 법적 시계 6개 */
+.clock-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  margin-top:1px;background:var(--line2);gap:1px;
+}
+.clk{
+  padding:44px 36px;background:var(--bg);
+  transition:background .26s;
+}
+.clk:hover{background:var(--bg2)}
+.clk-n{
+  font-family:'DM Mono',monospace;font-size:9px;
+  letter-spacing:4px;color:var(--gold);opacity:.45;margin-bottom:12px;
+}
+.clk-area{
+  font-family:'DM Mono',monospace;font-size:8px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--dim);margin-bottom:10px;
+}
+.clk-title{
+  font-family:'Noto Serif KR',serif;
+  font-size:clamp(14px,1.5vw,17px);font-weight:500;
+  color:var(--ink);line-height:1.42;
+  margin-bottom:16px;word-break:keep-all;
+}
+.clk-div{height:1px;background:var(--line2);margin-bottom:16px}
+.clk-body{
+  font-size:clamp(13px,1.35vw,15px);font-weight:300;
+  color:var(--sub);line-height:1.95;word-break:keep-all;
+}
+.clk-body strong{color:var(--text);font-weight:400}
+.clk-why{
+  margin-top:16px;padding-top:14px;
+  border-top:1px solid var(--line2);
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  color:var(--gold);line-height:1.62;word-break:keep-all;
+}
+
+/* ══════════════════════════════
+   ❹ 긴박도
+══════════════════════════════ */
+.statute{
+  margin:20px 0;padding:16px 22px;
+  border-left:2px solid var(--gold2);
+  font-size:clamp(13px,1.4vw,15px);line-height:1.80;
+  color:var(--sub);word-break:keep-all;
+  background:rgba(140,107,40,.04);
+}
+.statute strong{font-weight:500;color:var(--text)}
+
+.urg-list{margin-top:52px;display:flex;flex-direction:column}
+.ui{
+  display:grid;grid-template-columns:196px 1fr;
+  border-top:1px solid var(--line2);
+  transition:background .24s;
+}
+.ui:last-child{border-bottom:1px solid var(--line2)}
+.ui:hover{background:rgba(140,107,40,.03)}
+
+.ui-l{
+  padding:30px 24px;border-right:1px solid var(--line2);
+  display:flex;flex-direction:column;justify-content:center;position:relative;
+}
+.ui-bar{position:absolute;left:0;top:0;bottom:0;width:3px}
+.ui.r .ui-bar{background:linear-gradient(to bottom,rgba(195,65,40,.55),transparent)}
+.ui.a .ui-bar{background:linear-gradient(to bottom,rgba(190,150,22,.55),transparent)}
+.ui.s .ui-bar{background:linear-gradient(to bottom,rgba(60,115,188,.45),transparent)}
+
+.ui-lv{
+  font-family:'DM Mono',monospace;font-size:8px;
+  letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;
+}
+.ui.r .ui-lv{color:rgba(195,65,40,.70)}
+.ui.a .ui-lv{color:rgba(190,150,22,.70)}
+.ui.s .ui-lv{color:rgba(60,115,188,.62)}
+.ui-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(16px,1.9vw,22px);font-weight:400;
+  color:var(--ink);line-height:1.26;word-break:keep-all;margin-bottom:5px;
+}
+.ui-sub{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;
+  color:var(--dim);word-break:keep-all;
+}
+.ui-r{
+  padding:26px 28px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4px 22px;align-content:start;
+}
+.ui-item{display:flex;gap:9px;align-items:flex-start}
+.ui-dot{width:3px;height:3px;border-radius:50%;flex-shrink:0;margin-top:8px}
+.ui.r .ui-dot{background:rgba(195,65,40,.40)}
+.ui.a .ui-dot{background:rgba(190,150,22,.40)}
+.ui.s .ui-dot{background:rgba(60,115,188,.35)}
+.ui-txt{
+  font-size:clamp(13px,1.3vw,15px);font-weight:300;
+  color:var(--sub);line-height:1.75;word-break:keep-all;
+}
+.ui-txt strong{color:var(--text);font-weight:400}
+
+/* ══════════════════════════════
+   ❺ 현장
+══════════════════════════════ */
+.scene-two{
+  margin-top:64px;display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--line2);
+}
+.photo-ph{
+  min-height:300px;display:flex;align-items:center;justify-content:center;
+  background:var(--bg2);position:relative;overflow:hidden;
+}
+.ph-in{
+  position:relative;z-index:1;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 28px;
+}
+.ph-ico{
+  width:48px;height:48px;border-radius:50%;
+  border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg);
+}
+.ph-ico svg{width:18px;height:18px;stroke:var(--gold);opacity:.55;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.ph-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--dim)}
+.ph-desc{font-size:12px;font-weight:300;color:var(--dim);line-height:1.68;max-width:190px;word-break:keep-all}
+
+.scene-r{display:flex;flex-direction:column;gap:1px;background:var(--line2)}
+.scene-c{
+  padding:30px 28px;flex:1;background:var(--bg);transition:background .24s;
+}
+.scene-c:hover{background:var(--bg2)}
+.sc-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);opacity:.65;margin-bottom:8px}
+.sc-title{font-family:'Noto Serif KR',serif;font-size:clamp(14px,1.5vw,16px);font-weight:500;color:var(--ink);margin-bottom:9px;line-height:1.40;word-break:keep-all}
+.sc-body{font-size:clamp(13px,1.35vw,15px);font-weight:300;color:var(--sub);line-height:1.92;word-break:keep-all}
+.sc-body strong{color:var(--text);font-weight:400}
+
+.scene-3{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;margin-top:1px;background:var(--line2);
+}
+.scene-3 .scene-c{background:var(--bg)}
+.scene-3 .scene-c:hover{background:var(--bg2)}
+
+/* ══════════════════════════════
+   ❻ 신뢰
+══════════════════════════════ */
+.cmp{margin-top:64px;background:var(--line2);gap:1px;display:flex;flex-direction:column}
+.cmp-row{
+  display:grid;grid-template-columns:152px 1fr 1fr;
+  gap:1px;transition:background .18s;
+}
+.cmp-row>*{background:var(--bg)}
+.cmp-row:not(.hdr):hover>*{background:var(--bg2)}
+.cmp-lbl{
+  padding:13px 15px;
+  font-family:'DM Mono',monospace;font-size:8px;
+  letter-spacing:2px;text-transform:uppercase;color:var(--dim);
+  display:flex;align-items:center;
+}
+.cmp-no{
+  padding:13px 16px;
+  font-size:clamp(13px,1.3vw,15px);font-weight:300;
+  color:var(--dim);line-height:1.55;
+  text-decoration:line-through;text-decoration-color:rgba(140,107,40,.18);
+  word-break:keep-all;
+}
+.cmp-yes{
+  padding:13px 16px;
+  font-size:clamp(13px,1.3vw,15px);font-weight:500;
+  color:var(--ink);line-height:1.55;word-break:keep-all;
+}
+.cmp-row.hdr>*{background:var(--bg2)}
+.cmp-row.hdr .cmp-no{
+  text-align:center;text-decoration:none;
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--dim);
+}
+.cmp-row.hdr .cmp-yes{
+  text-align:center;
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--gold);
+  border-top:2px solid var(--gold2);
+}
+
+.gbox{
+  margin-top:48px;padding:28px 0;
+  border-top:1px solid var(--line);
+}
+.gbox-lbl{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);opacity:.75;margin-bottom:16px;
+}
+.gbox-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 56px}
+.gbox-item{
+  display:flex;gap:11px;
+  font-size:clamp(13px,1.35vw,15px);font-weight:300;
+  color:var(--sub);line-height:1.70;word-break:keep-all;
+  padding:10px 0;border-bottom:1px solid var(--line2);
+}
+.gbox-item:last-child,.gbox-item:nth-last-child(2){border-bottom:none}
+.gbox-item::before{content:'—';color:var(--gold);opacity:.55;flex-shrink:0;font-family:'DM Mono',monospace}
+.gbox-item strong{color:var(--text);font-weight:400}
+
+/* ══════════════════════════════
+   ❼-A 수임 사례
+══════════════════════════════ */
+.cases{
+  margin-top:64px;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--line2);
+}
+.case-card{
+  padding:44px 36px;background:var(--bg);transition:background .26s;
+}
+.case-card:hover{background:var(--bg2)}
+.case-type{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:4px;
+  text-transform:uppercase;color:var(--gold);opacity:.62;margin-bottom:16px;
+}
+.case-result{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,3.8vw,52px);
+  font-weight:300;color:var(--ink);
+  line-height:1.10;margin-bottom:14px;word-break:keep-all;
+}
+.case-result em{font-style:italic;color:var(--gold2)}
+.case-div{height:1px;background:var(--line2);margin-bottom:14px}
+.case-sit{
+  font-size:clamp(13px,1.35vw,15px);font-weight:300;
+  color:var(--sub);line-height:1.90;word-break:keep-all;margin-bottom:12px;
+}
+.case-sit strong{color:var(--text);font-weight:400}
+.case-how{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  color:var(--gold);line-height:1.62;word-break:keep-all;
+}
+.case-notice{
+  margin-top:28px;
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;
+  color:var(--dim);line-height:1.85;word-break:keep-all;
+}
+
+/* ══════════════════════════════
+   ❼-B 의뢰인 목소리
+══════════════════════════════ */
+.voices{
+  margin-top:64px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:52px;
+}
+.voice-open{
+  font-family:'Cormorant Garamond',serif;
+  font-size:60px;font-weight:300;color:var(--gold2);opacity:.22;
+  line-height:.8;margin-bottom:16px;display:block;
+}
+.voice-q{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(16px,1.95vw,23px);
+  font-weight:300;font-style:italic;
+  color:var(--ink);line-height:1.75;
+  margin-bottom:20px;word-break:keep-all;
+}
+.voice-q em{font-style:normal;font-weight:600;color:var(--gold2)}
+.voice-from{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--dim);padding-top:18px;border-top:1px solid var(--line2);
+}
+
+/* ══════════════════════════════
+   ❽ 패키지
+══════════════════════════════ */
+.pkg{
+  margin-top:64px;display:grid;grid-template-columns:1fr 1.4fr;
+  gap:1px;background:var(--line);position:relative;
+}
+.pkg::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;z-index:1;
+  background:linear-gradient(90deg,transparent,var(--gold2) 25%,var(--gold3) 50%,var(--gold2) 75%,transparent);
+}
+.pkg-l{
+  padding:52px 44px;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.pkg-tier{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);opacity:.62;margin-bottom:12px;
+}
+.pkg-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(44px,6.2vw,80px);font-weight:300;
+  color:var(--ink);line-height:.88;margin-bottom:12px;
+}
+.pkg-comma{color:var(--gold2)}
+.pkg-desc{
+  font-size:clamp(14px,1.5vw,17px);font-weight:300;
+  color:var(--sub);line-height:1.95;margin-bottom:26px;word-break:keep-all;
+}
+/* 보장 — 어두운 반전 블록 */
+.pkg-box{
+  padding:18px 22px;background:var(--bg-inv);
+}
+.pb-lbl{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(244,239,230,.32);margin-bottom:5px;
+}
+.pb-txt{
+  font-size:clamp(13px,1.4vw,16px);font-weight:500;
+  color:rgba(244,239,230,.92);line-height:1.58;word-break:keep-all;
+}
+.pb-sub{
+  font-size:11px;font-weight:300;
+  color:rgba(244,239,230,.36);margin-top:4px;line-height:1.52;word-break:keep-all;
+}
+.pkg-r{padding:44px 40px;background:var(--bg)}
+.pkg-list-lbl{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);opacity:.62;margin-bottom:18px;
+}
+.pkg-list{list-style:none;border-top:1px solid var(--line2)}
+.pkg-list li{
+  display:flex;gap:13px;align-items:flex-start;
+  font-size:clamp(13px,1.35vw,16px);font-weight:300;
+  padding:11px 0;color:var(--sub);
+  border-bottom:1px solid var(--line2);line-height:1.68;word-break:keep-all;
+}
+.pkg-list li:last-child{border-bottom:none}
+.pkg-list li::before{
+  content:'';display:inline-block;width:3px;height:3px;border-radius:50%;
+  background:var(--gold2);flex-shrink:0;margin-top:9px;
+}
+.pkg-list li strong{color:var(--text);font-weight:400}
+
+/* ══════════════════════════════
+   ❾ CTA — 어두운 반전
+══════════════════════════════ */
+.final{
+  min-height:68vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  padding:110px 7vw;
+  background:var(--bg-inv);
+}
+.final::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold2) 28%,var(--gold3) 50%,var(--gold2) 72%,transparent);
+  opacity:.38;
+}
+.final::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold) 35%,var(--gold2) 50%,var(--gold) 65%,transparent);
+  opacity:.22;
+}
+.final-in{
+  text-align:center;position:relative;z-index:1;
+  max-width:620px;margin:0 auto;width:100%;
+}
+.final-lbl{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:6px;text-transform:uppercase;
+  color:rgba(244,239,230,.26);margin-bottom:22px;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+}
+.final-lbl::before,.final-lbl::after{content:'';height:1px;width:14px;background:rgba(200,168,92,.24)}
+.final-brand{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(58px,9.5vw,114px);font-weight:300;
+  color:rgba(244,239,230,.92);line-height:.86;
+  letter-spacing:.03em;margin-bottom:14px;
+}
+.final-brand-c{color:rgba(200,168,92,.80)}
+.final-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(16px,2vw,24px);font-weight:300;font-style:italic;
+  color:rgba(244,239,230,.38);margin-bottom:44px;
+  line-height:1.70;word-break:keep-all;
+}
+.final-rule{
+  width:1px;height:44px;
+  background:linear-gradient(to bottom,rgba(200,168,92,.22),transparent);
+  margin:36px auto;
+}
+.final-foot{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(14px,1.7vw,20px);font-weight:300;font-style:italic;
+  color:rgba(244,239,230,.28);line-height:1.88;word-break:keep-all;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--bg2);border-top:1px solid var(--line);
+  padding:40px 7vw;position:relative;z-index:1;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+}
+.ft-l{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;color:var(--ink);opacity:.40;flex-shrink:0}
+.ft-l em{font-style:italic;color:var(--gold)}
+.ft-c{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:300;font-style:italic;color:var(--dim);text-align:center;line-height:1.88;word-break:keep-all}
+.ft-r{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);text-align:right;line-height:1.85;flex-shrink:0}
+
+/* ── STICKY ── */
+.sticky{
+  position:fixed;bottom:0;left:0;right:0;z-index:400;
+  background:rgba(244,239,230,.97);border-top:1px solid var(--line);
+  backdrop-filter:blur(20px);padding:12px 7vw;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  transform:translateY(100%);transition:transform .52s cubic-bezier(.16,1,.3,1);
+}
+.sticky.show{transform:translateY(0)}
+.sk-l{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:400;font-style:italic;color:var(--sub);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.sk-l strong{font-style:normal;color:var(--ink)}
+.sk-r{display:flex;gap:10px;align-items:center;flex-shrink:0}
+.sk-clk{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--dim)}
+.sk-btn{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(244,239,230,.96);background:var(--ink);
+  padding:9px 18px;cursor:pointer;transition:all .22s;
+  white-space:nowrap;text-decoration:none;display:inline-block;
+}
+.sk-btn:hover{background:var(--ink2)}
+
+/* ═══════════════════════════
+   RESPONSIVE
+═══════════════════════════ */
+@media(max-width:960px){
+  .sec{padding:96px 0 76px}
+  .two-col{grid-template-columns:1fr;gap:48px}
+  .clock-grid{grid-template-columns:1fr 1fr}
+  .urg-list .ui{grid-template-columns:1fr}
+  .ui-l{border-right:none;border-bottom:1px solid var(--line2);padding:22px 22px}
+  .ui-r{grid-template-columns:1fr;padding:20px 22px}
+  .scene-two{grid-template-columns:1fr}
+  .photo-ph{min-height:180px}
+  .scene-3{grid-template-columns:1fr 1fr}
+  .cases{grid-template-columns:1fr 1fr}
+  .case-card:last-child{grid-column:1/-1}
+  .voices{grid-template-columns:1fr;gap:36px}
+  .pkg{grid-template-columns:1fr}
+  .pkg-l{padding:40px 36px}
+  .pkg-r{padding:36px 36px}
+  .gbox-grid{grid-template-columns:1fr}
+  footer{flex-wrap:wrap;justify-content:center;text-align:center}
+  .ft-c,.ft-r{text-align:center}
+}
+
+@media(max-width:680px){
+  .wrap{padding:0 5.5vw}
+  .sec{padding:72px 0 56px}
+  nav{padding:14px 5.5vw}
+  .hero{padding:0 5.5vw 11vh}
+  .h-eye{font-size:7px;margin-bottom:30px}
+  .h-line1{font-size:clamp(34px,8vw,58px)}
+  .h-line2{font-size:clamp(22px,5.8vw,38px)}
+  .h-copy{font-size:14px;max-width:100%}
+  .urg-btn{font-size:7px;padding:8px 12px}
+  .h-badges{display:none}
+  .h-action{flex-direction:column;align-items:flex-start;gap:12px}
+  .btn-light{width:100%}
+  .dark-quote{padding:40px 28px}
+  .dq-text{font-size:clamp(18px,5vw,30px)}
+  .clock-grid{grid-template-columns:1fr}
+  .cases{grid-template-columns:1fr}
+  .case-card:last-child{grid-column:auto}
+  .scene-3{grid-template-columns:1fr}
+  .cmp-row{grid-template-columns:110px 1fr 1fr}
+  .pkg-name{font-size:clamp(42px,10vw,64px)}
+  .final{padding:80px 5.5vw}
+  .final-brand{font-size:clamp(52px,12.5vw,80px)}
+  .final-sub{font-size:clamp(14px,4vw,20px);margin-bottom:32px}
+  footer{padding:28px 5.5vw;flex-direction:column;gap:14px;align-items:center}
+  .sticky{padding:10px 5.5vw}
+}
+
+@media(max-width:480px){
+  .h-line1{font-size:clamp(28px,9vw,48px)}
+  .h-line2{font-size:clamp(18px,6.2vw,32px)}
+  .urg-row{flex-direction:column;align-items:flex-start;gap:2px}
+  .urg-btn{width:100%;text-align:left}
+  .ui-r{grid-template-columns:1fr}
+  .gbox-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:380px){
+  .wrap{padding:0 4.5vw}
+  .h-line1{font-size:clamp(24px,9.5vw,40px)}
+  .h-line2{font-size:clamp(17px,6.8vw,27px)}
+  .sk-clk{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY -->
+<div class="sticky" id="sticky">
+  <div class="sk-l"><strong>복기,</strong> — 처음부터 다시 읽어드립니다.</div>
+  <div class="sk-r">
+    <div class="sk-clk" id="sk-clock">00:00:00</div>
+    <a href="tel:0231821981" class="sk-btn">02-318-2981 →</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">복기, <em>by 여온</em></div>
+  <a href="tel:0231821981" class="nav-tel">02-318-2981</a>
+</nav>
+
+
+<!-- ══ ❶ HERO ══ -->
+<section class="hero">
+  <div class="hero-top"></div>
+  <div class="hero-fade"></div>
+
+  <div class="h-eye">법무법인 여온 · 부동산 법률</div>
+
+  <div class="h-msg">
+    <span class="h-line1">그 돈, 그대의 인생이잖아요</span>
+    <span class="h-line2">계약했던 시점부터 다시 보겠습니다.</span>
+  </div>
+
+  <div class="h-sig">
+    <div class="h-sig-bar"></div>
+    <div class="h-sig-txt">복기, <em>by 여온</em></div>
+  </div>
+
+  <div class="h-copy">
+    가족한테 말하기 어렵고,<br>
+    아는 사람한테 물어보기도 애매하죠<br>
+    혼자 다 알아보다 여기까지 오셨겠네요.<br>
+    <strong>여온은 그 무게를 압니다.</strong>
+  </div>
+
+  <div class="urg-row">
+    <button class="urg-btn r on" onclick="document.getElementById('urg-r').scrollIntoView({behavior:'smooth'})">🔴 지금 당장</button>
+    <button class="urg-btn a" onclick="document.getElementById('urg-a').scrollIntoView({behavior:'smooth'})">🟡 시간은 있지만</button>
+    <button class="urg-btn s" onclick="document.getElementById('urg-s').scrollIntoView({behavior:'smooth'})">⚪ 미리 챙기는</button>
+  </div>
+
+  <div class="h-badges">
+    <span class="badge">전국 대응</span>
+    <span class="badge">365일 무휴</span>
+    <span class="badge">수임 당일 착수</span>
+    <span class="badge">복기 · 여온</span>
+  </div>
+
+  <div class="h-action">
+    <a href="tel:0231821981" class="btn-light">
+      <div class="bl-label">지금 전화하세요</div>
+      <div class="bl-num">02-318-2981</div>
+    </a>
+    <div class="btn-note">
+      <strong>여온이 하면 다릅니다</strong>
+      임차인 · 임대인 · 매수인 · 매도인, 어느 상황이든
+    </div>
+  </div>
+</section>
+
+
+<!-- MARQUEE -->
+<div class="strip">
+  <div class="strip-track">
+    <span>지금 이 순간에도 법적 시계가 돌아가고 있습니다</span><span class="dot">·</span>
+    <span>상대방은 이미 6개월 앞서 있습니다</span><span class="dot">·</span>
+    <span>판을 먼저 읽는 쪽이 이깁니다</span><span class="dot">·</span>
+    <span>복기 · 계약했던 시점부터 다시 보겠습니다</span><span class="dot">·</span>
+    <span>그 돈, 그대의 인생이잖아요</span><span class="dot">·</span>
+    <span>지금 이 순간에도 법적 시계가 돌아가고 있습니다</span><span class="dot">·</span>
+    <span>상대방은 이미 6개월 앞서 있습니다</span><span class="dot">·</span>
+    <span>판을 먼저 읽는 쪽이 이깁니다</span><span class="dot">·</span>
+  </div>
+</div>
+
+
+<!-- ══ ❷ 복기란 ══ -->
+<section class="sec divide">
+  <div class="wrap">
+    <div class="rv">
+      <div class="lbl">복기란</div>
+      <h2 class="h2">처음으로 돌아가<br><em>다시 한 수씩 놓아봅니다</em></h2>
+    </div>
+
+    <div class="two-col rv d1">
+      <div>
+        <div class="tc-quote">
+          부동산 분쟁에서 진 사람들이<br>
+          가장 많이 하는 말이 있습니다.<br><br>
+          <em>"왜 그냥 사인했을까...?"</em>
+        </div>
+        <div class="tc-body">
+          복기는 그 후회가 오기 전에,<br>
+          이 판을 처음부터 다시 읽는 행위입니다.<br><br>
+          <strong>여온은 당신의 판을 먼저 읽습니다.</strong><br>
+          늦지 않은 경우가 더 많습니다.
+        </div>
+      </div>
+      <div>
+        <div class="tc-quote" style="font-size:clamp(17px,2vw,24px);margin-bottom:14px">
+          부동산 분쟁에서<br>
+          <em>지는 수순은 정해져 있습니다</em>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-n">01</div>
+            <div>
+              <div class="step-lbl">첫 번째 악수</div>
+              <div class="step-txt">계약서를 제대로 읽지 않았습니다.<br><strong>특약 한 줄</strong>이 이후 모든 분쟁의 기반이 됩니다.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">02</div>
+            <div>
+              <div class="step-lbl">두 번째 악수</div>
+              <div class="step-txt"><strong>"알아서 해결되겠지"</strong>라고 기다렸습니다.<br>상대방은 그 사이 법적 조치를 준비했습니다.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">03</div>
+            <div>
+              <div class="step-lbl">세 번째 악수</div>
+              <div class="step-txt">변호사를 너무 늦게 선임했습니다.<br><strong>기울어진 판세</strong>를 되돌리는 데는 몇 배가 필요합니다.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">↗</div>
+            <div>
+              <div class="step-lbl">복기의 시작</div>
+              <div class="step-txt"><strong>지금 시작해도 늦지 않은 경우가 더 많습니다.</strong><br>어디서 잘못됐는지 파악해드립니다.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ❸ 위기감 + 왜 ══ -->
+<section class="sec divide">
+  <div class="wrap">
+    <div class="rv">
+      <div class="lbl">지금 당장 확인하십시오</div>
+      <h2 class="h2">지금 이 순간에도<br><em>법적 시계가 돌아가고 있습니다</em></h2>
+      <p class="lead">
+        문제가 있다는 걸 알면서도 행동하지 않는 사이,<br>
+        기한은 소멸하고 권리는 사라집니다.<br>
+        <strong>왜 지금이어야 하는지, 법이 말하고 있습니다.</strong>
+      </p>
+    </div>
+
+    <div class="dark-quote rv d1">
+      <div class="dq-lbl">계약서 — 서명 전에 읽어야 했던 문장</div>
+      <div class="dq-text">
+        "임대인은 임차인에게 통보 없이<br>
+        목적물을 담보로 제공할 수 있으며,<br>
+        <em>이로 인한 손해는 임대인이 책임지지 않는다."</em>
+      </div>
+      <div class="dq-sub">
+        이 특약이 뭘 의미하는지 아셨습니까?<br>
+        서명 전에 설명해준 사람이 있었습니까?
+      </div>
+    </div>
+
+    <div class="clock-grid rv d2">
+      <div class="clk">
+        <div class="clk-n">01</div>
+        <div class="clk-area">전세 · 보증금</div>
+        <div class="clk-title">확정일자보다<br>근저당이 하루 먼저입니다</div>
+        <div class="clk-div"></div>
+        <div class="clk-body">대항력은 전입신고 다음 날 0시부터 생깁니다.<br>그 사이 <strong>근저당이 설정되면</strong><br>보증금은 후순위가 됩니다.</div>
+        <div class="clk-why">왜 지금 — 근저당 설정 여부는 오늘 등기부로 확인 가능합니다</div>
+      </div>
+      <div class="clk">
+        <div class="clk-n">02</div>
+        <div class="clk-area">임대차 갱신</div>
+        <div class="clk-title">묵시적 갱신,<br>나갈 수 없는 함정</div>
+        <div class="clk-div"></div>
+        <div class="clk-body">만료 <strong>6개월~2개월 전</strong>에 통보가 없으면 자동 갱신.<br>이후 해지를 통보해도<br><strong>3개월은 더 버텨야 합니다.</strong></div>
+        <div class="clk-why">왜 지금 — 만료 6개월 전, 이 기간이 지나면 선택지가 없어집니다</div>
+      </div>
+      <div class="clk">
+        <div class="clk-n">03</div>
+        <div class="clk-area">경매 · 배당</div>
+        <div class="clk-title">배당요구 종기일,<br>기다려주지 않습니다</div>
+        <div class="clk-div"></div>
+        <div class="clk-body">기일 내 권리신고를 하지 않으면,<br><strong>선순위 권리자여도</strong><br>배당에서 제외될 수 있습니다.</div>
+        <div class="clk-why">왜 지금 — 경매 기일은 법원이 정합니다. 연장 없습니다</div>
+      </div>
+      <div class="clk">
+        <div class="clk-n">04</div>
+        <div class="clk-area">명도 · 강제집행</div>
+        <div class="clk-title">인도명령 6개월,<br>이 기간이 지나면 달라집니다</div>
+        <div class="clk-div"></div>
+        <div class="clk-body">낙찰 후 <strong>6개월 이내</strong>에는 인도명령으로 처리 가능합니다.<br>이후엔 명도소송.<br><strong>최소 6개월~1년</strong>이 더 걸립니다.</div>
+        <div class="clk-why">왜 지금 — 낙찰일 기산, 6개월이 자동으로 소멸합니다</div>
+      </div>
+      <div class="clk">
+        <div class="clk-n">05</div>
+        <div class="clk-area">하자 · 손해배상</div>
+        <div class="clk-title">발견 즉시 기록하지 않으면<br>권리가 사라집니다</div>
+        <div class="clk-div"></div>
+        <div class="clk-body">즉시 서면 통보를 하지 않으면<br><strong>묵시적 승인</strong>으로 볼 수 있습니다.<br>증거가 없으면 주장도 없습니다.</div>
+        <div class="clk-why">왜 지금 — 지금 이 순간도 증거 보전이 가능합니다</div>
+      </div>
+      <div class="clk">
+        <div class="clk-n">06</div>
+        <div class="clk-area">재개발 · 보상</div>
+        <div class="clk-title">권리산정기준일을<br>모르면 보상이 없습니다</div>
+        <div class="clk-div"></div>
+        <div class="clk-body">관리처분계획인가 이후 취득하면<br><strong>조합원 자격이 없습니다.</strong><br>기준일을 모르면 보상금 없이 이주합니다.</div>
+        <div class="clk-why">왜 지금 — 계약 전 확인이 가능한 사항입니다</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ❹ 긴박도 ══ -->
+<section class="sec divide">
+  <div class="wrap">
+    <div class="rv">
+      <div class="lbl">지금 내 상황은</div>
+      <h2 class="h2">지금 내 판에서<br><em>어떤 시계가 돌아가고 있습니까?</em></h2>
+      <p class="lead">임차인도 임대인도 아닙니다.<br>지금 얼마나 급한가, 그게 전부입니다.</p>
+      <div class="statute rv d1">
+        <strong>주택임대차보호법 제3조의2</strong><br>
+        확정일자를 갖춘 임차인은 경매 또는 공매 시,
+        후순위 권리자보다 우선하여 보증금을 변제받을 권리가 있다.
+      </div>
+    </div>
+
+    <div class="urg-list rv d1">
+      <div class="ui r" id="urg-r">
+        <div class="ui-l">
+          <div class="ui-bar"></div>
+          <div class="ui-lv">🔴 지금 당장</div>
+          <div class="ui-title">오늘, 이번 주<br>안에 결정해야 합니다</div>
+          <div class="ui-sub">기일이 정해져 있습니다</div>
+        </div>
+        <div class="ui-r">
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>경매 기일 이번 주</strong> — 배당요구 종기일을 놓쳤습니까?</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>보증금 반환 거부</strong> — 만기 후 임대인이 연락을 끊었습니다</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>강제집행 예고장</strong> — 내용증명 또는 집행관 방문을 받았습니다</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>계약금 먹튀</strong> — 상대방이 잠적하거나 연락이 두절됐습니다</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>전세사기 의심</strong> — 예상치 못한 근저당·가압류가 설정됐습니다</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>오늘 당장 비워야</strong> — 자물쇠 교체 등 실력 행사를 당했습니다</div></div>
+        </div>
+      </div>
+      <div class="ui a" id="urg-a">
+        <div class="ui-l">
+          <div class="ui-bar"></div>
+          <div class="ui-lv">🟡 시간은 있지만</div>
+          <div class="ui-title">지금 움직이지 않으면<br>늦습니다</div>
+          <div class="ui-sub">수 주 ~ 수개월 내 대응</div>
+        </div>
+        <div class="ui-r">
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>전세 만기 3개월 전</strong> — 갱신 거절·보증금 반환 협의가 필요합니다</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>임대료 3개월 연체</strong> — 계약 해지 및 명도 절차를 준비해야 합니다</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>하자 발견</strong> — 서면 통보 및 손해배상 청구를 준비해야 합니다</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>등기부 근저당 발견</strong> — 계약 전 몰랐던 권리관계가 있습니다</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>공사 하자</strong> — 시공사가 하자 보수를 미루고 있습니다</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>재개발 보상 협의</strong> — 조합이 제시한 보상액이 납득되지 않습니다</div></div>
+        </div>
+      </div>
+      <div class="ui s" id="urg-s">
+        <div class="ui-l">
+          <div class="ui-bar"></div>
+          <div class="ui-lv">⚪ 미리 챙기는</div>
+          <div class="ui-title">지금 보는 것이<br>가장 저렴합니다</div>
+          <div class="ui-sub">계약 전 · 투자 전 · 착수 전</div>
+        </div>
+        <div class="ui-r">
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>계약서 검토</strong> — 서명 전, 특약 한 줄이 발목을 잡지 않게</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>등기부 분석</strong> — 매수 전 숨겨진 권리관계를 먼저 확인합니다</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>임대사업 구조 설계</strong> — 세무·법률 리스크를 최소화하는 구조</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>재개발 구역 매수</strong> — 권리산정기준일·조합원 자격 사전 확인</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>상가 임대차</strong> — 권리금 보호, 계약 갱신 요구권 범위 확인</div></div>
+          <div class="ui-item"><div class="ui-dot"></div><div class="ui-txt"><strong>분양·시행 관련</strong> — 계약서 독소조항 사전 검토 및 협상</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ❺ 현장 ══ -->
+<section class="sec divide">
+  <div class="wrap">
+    <div class="rv">
+      <div class="lbl">현장</div>
+      <h2 class="h2">복기가 시작되면<br><em>정확히 이런 일이 벌어집니다</em></h2>
+    </div>
+
+    <div class="scene-two rv d1">
+      <div class="photo-ph">
+        <div class="ph-in">
+          <div class="ph-ico">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="ph-lbl">계약서 검토 현장 사진 준비 중</div>
+          <div class="ph-desc">실제 검토 현장 사진이 이 자리에 들어옵니다.</div>
+        </div>
+      </div>
+      <div class="scene-r">
+        <div class="scene-c">
+          <div class="sc-lbl">수임 즉시</div>
+          <div class="sc-title">계약서 전체를 처음부터 다시 읽습니다</div>
+          <div class="sc-body">특약, 부속합의서, 중개확인서.<br>상대방이 넣어둔 문장을 전부 찾아내고,<br><strong>"이 조항이 왜 위험한지"</strong>를 설명해드립니다.</div>
+        </div>
+        <div class="scene-c">
+          <div class="sc-lbl">등기부 분석</div>
+          <div class="sc-title">보이지 않는 권리관계를 먼저 읽습니다</div>
+          <div class="sc-body">근저당, 가압류, 지상권, 유치권.<br><strong>전부 해석하고 위험 순위를 정해</strong> 드립니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scene-3 rv d2">
+      <div class="scene-c">
+        <div class="sc-lbl">전략 수립</div>
+        <div class="sc-title">지금 어떤 수를 두어야 하는지 알려드립니다</div>
+        <div class="sc-body">내용증명, 가압류, 임차권등기명령.<br><strong>가장 빠르고 확실한 수순</strong>을 설계합니다.</div>
+      </div>
+      <div class="scene-c">
+        <div class="sc-lbl">여온이 선임된 후</div>
+        <div class="sc-title">상대방이 보는 시선이 달라집니다</div>
+        <div class="sc-body">"아직 대응 안 했네" →<br><strong>"준비된 상대다."</strong><br>판세가 달라집니다.</div>
+      </div>
+      <div class="scene-c">
+        <div class="sc-lbl">복기 완료</div>
+        <div class="sc-title">어디서 잘못됐는지 알면 이길 수 있습니다</div>
+        <div class="sc-body">왜 여기까지 왔는지를 알아야<br>여기서 나갈 수 있습니다.<br><strong>판 전체를 이해한 상태</strong>에서 싸웁니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ❻ 신뢰 ══ -->
+<section class="sec divide">
+  <div class="wrap">
+    <div class="rv">
+      <div class="lbl">신뢰</div>
+      <h2 class="h2">"다른 사무소랑<br><em>뭐가 다른데?"</em></h2>
+      <p class="lead">여온이 선임되기 전과 후,<br>상대방 변호사가 보는 시선이 달라집니다.</p>
+    </div>
+
+    <div class="cmp rv d1">
+      <div class="cmp-row hdr">
+        <div class="cmp-lbl"></div>
+        <div class="cmp-no">일반 형사 사무소</div>
+        <div class="cmp-yes">복기, by 여온</div>
+      </div>
+      <div class="cmp-row"><div class="cmp-lbl">착수 시점</div><div class="cmp-no">수임 후 일정 협의</div><div class="cmp-yes"><strong>수임 당일 즉시 착수</strong></div></div>
+      <div class="cmp-row"><div class="cmp-lbl">착수 보장</div><div class="cmp-no">보장 없음</div><div class="cmp-yes"><strong>계약서에 명시</strong></div></div>
+      <div class="cmp-row"><div class="cmp-lbl">담당자</div><div class="cmp-no">직원 또는 연락 불가</div><div class="cmp-yes"><strong>담당 변호사 직접</strong></div></div>
+      <div class="cmp-row"><div class="cmp-lbl">진행 보고</div><div class="cmp-no">별도 요청 시</div><div class="cmp-yes"><strong>정기 브리핑 자동 제공</strong></div></div>
+      <div class="cmp-row"><div class="cmp-lbl">대응 지역</div><div class="cmp-no">서울·수도권 위주</div><div class="cmp-yes"><strong>전국 어디든</strong></div></div>
+    </div>
+
+    <div class="gbox rv d2">
+      <div class="gbox-lbl">복기, by 여온 — 차별점</div>
+      <div class="gbox-grid">
+        <div class="gbox-item"><strong>수임 당일 착수</strong> — 계약서 검토를 그날 시작합니다</div>
+        <div class="gbox-item"><strong>담당 변호사 직접 소통</strong> — 직원이 아닌 변호사가 직접 연락합니다</div>
+        <div class="gbox-item"><strong>정기 상황 브리핑</strong> — 당신, 곁의 방식 그대로 부동산에도 적용합니다</div>
+        <div class="gbox-item"><strong>전국 대응</strong> — 서울·수도권·지방 어디든 즉시 착수합니다</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ❼-A 수임 사례 ══ -->
+<section class="sec divide">
+  <div class="wrap">
+    <div class="rv">
+      <div class="lbl">수임 사례</div>
+      <h2 class="h2">이런 판을<br><em>읽어봤습니다</em></h2>
+      <p class="lead">실제로 어떤 상황에서,<br>어떻게 결과가 달라졌는지. 숫자가 말합니다.</p>
+    </div>
+
+    <div class="cases rv d1">
+      <div class="case-card">
+        <div class="case-type">전세 · 보증금</div>
+        <div class="case-result"><em>전액</em> 회수</div>
+        <div class="case-div"></div>
+        <div class="case-sit">임대인이 잠적했습니다.<br>보증금 <strong>2억 3천만 원</strong>이 묶인 상태였습니다.</div>
+        <div class="case-how">가압류 즉시 신청 → 지급명령 → 전액 배당 완료</div>
+      </div>
+      <div class="case-card">
+        <div class="case-type">경매 · 배당</div>
+        <div class="case-result">종기일<br><em>3일 전</em></div>
+        <div class="case-div"></div>
+        <div class="case-sit">배당요구 종기일을 모르고 있었습니다.<br>연락받은 시점이 <strong>기일 3일 전</strong>이었습니다.</div>
+        <div class="case-how">즉일 권리신고 완료 → 보증금 전액 배당 수령</div>
+      </div>
+      <div class="case-card">
+        <div class="case-type">임대차 갱신</div>
+        <div class="case-result"><em>2년</em> 확보</div>
+        <div class="case-div"></div>
+        <div class="case-sit">임대인이 만료 1개월 전 즉시 퇴거를 요구했습니다.<br>묵시적 갱신 여부가 <strong>쟁점</strong>이었습니다.</div>
+        <div class="case-how">갱신요구권 행사 통보 → 임대인 철회 → 2년 추가 거주</div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+    <p class="case-notice">위 사례는 실제 수임 내용을 바탕으로 하되, 의뢰인 정보는 익명 처리되었습니다. 개별 사건의 결과는 사실관계 및 상황에 따라 다를 수 있으며, 특정 결과를 보장하지 않습니다.</p>
+  </div>
+</section>
+
+
+<!-- ══ ❼-B 의뢰인 목소리 ══ -->
+<section class="sec divide">
+  <div class="wrap">
+    <div class="rv">
+      <div class="lbl">의뢰인의 말</div>
+      <h2 class="h2">이런 말을<br><em>들었습니다</em></h2>
+    </div>
+
+    <div class="voices rv d1">
+      <div class="voice">
+        <span class="voice-open">"</span>
+        <div class="voice-q">이미 늦었다고 생각했는데<br>변호사님이 <em>아직 길이 있다</em>고 하셨어요.<br>그 말 한 마디에 다시 시작할 수 있었습니다.</div>
+        <div class="voice-from">40대 · 전세보증금 분쟁</div>
+      </div>
+      <div class="voice">
+        <span class="voice-open">"</span>
+        <div class="voice-q">혼자 알아보다 지쳐서 전화했는데<br><em>첫 통화부터 달랐습니다.</em><br>설명이 아니라 판단을 해주셨어요.</div>
+        <div class="voice-from">50대 · 경매 배당 문제</div>
+      </div>
+      <div class="voice">
+        <span class="voice-open">"</span>
+        <div class="voice-q">계약서를 다시 보여드렸더니<br><em>제가 놓친 걸 바로 찾아내셨어요.</em><br>혼자였으면 그냥 넘어갔을 특약이었습니다.</div>
+        <div class="voice-from">30대 · 임대차 특약 분쟁</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ❽ 패키지 ══ -->
+<section class="sec divide">
+  <div class="wrap">
+    <div class="rv">
+      <div class="lbl">올인원</div>
+      <h2 class="h2">복기, by 여온<br><em>부동산 법률 토탈 서비스</em></h2>
+      <p class="lead">계약서 검토부터 경매·명도·손해배상·재개발까지.<br>판 전체를 커버합니다.</p>
+    </div>
+
+    <div class="pkg rv d1">
+      <div class="pkg-l">
+        <div class="pkg-tier">복기, — The Only Package</div>
+        <div class="pkg-name">복기<span class="pkg-comma">,</span></div>
+        <div class="pkg-desc">하나의 패키지만 존재합니다.<br>판 전체를 읽어야 수를 압니다.</div>
+        <div class="pkg-box">
+          <div class="pb-lbl">계약서 명시 보장</div>
+          <div class="pb-txt">수임 당일 착수 — 계약서 검토 즉시 시작</div>
+          <div class="pb-sub">임차인·임대인·매수인·매도인 모두 · 전국 대응</div>
+        </div>
+      </div>
+      <div class="pkg-r">
+        <div class="pkg-list-lbl">Package Includes — 전체 포함</div>
+        <ul class="pkg-list">
+          <li><strong>계약서 전체 검토</strong> — 특약·부속합의서 포함, 수임 당일 착수</li>
+          <li>등기부등본 분석 + 숨겨진 권리관계 전체 해석</li>
+          <li><strong>내용증명·가압류·임차권등기명령</strong> 즉각 준비 및 발송</li>
+          <li>경매 배당요구·권리신고 전면 대행</li>
+          <li>명도소송·인도명령 완전 준비</li>
+          <li><strong>보증금 반환 협상</strong> — 상대방 직접 협상 전담</li>
+          <li>하자 손해배상 청구 전략 수립 + 증거 보전</li>
+          <li>재개발·재건축 권리산정 분석 + 보상 협의</li>
+          <li><strong>정기 상황 브리핑</strong> — 담당 변호사 직접 연락</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ❾ CTA ══ -->
+<section class="final" id="final-cta">
+  <div class="final-in">
+    <div class="final-lbl rv">당신의 판을 기다리는 분께</div>
+    <div class="final-brand rv d1">복기<span class="final-brand-c">,</span></div>
+    <div class="final-sub rv d2">어디서 잘못됐는지 알면,<br>여기서 이길 수 있습니다.</div>
+    <div class="rv d3">
+      <a href="tel:0231821981" class="btn-light">
+        <div class="bl-label">지금 전화하세요</div>
+        <div class="bl-num">02-318-2981</div>
+      </a>
+      <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(244,239,230,.25)">
+        전국 대응 · 수임 당일 착수 · 365일 무휴
+      </div>
+    </div>
+    <div class="final-rule rv d4"></div>
+    <div class="final-foot rv d4">그 돈, 그대의 인생이잖아요.</div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="ft-l">복기<em>,</em> <em style="font-size:12px;letter-spacing:2px">by 여온</em></div>
+  <div class="ft-c">"그 계약서를 왜 그냥 사인했을까."<br>그 후회가 오기 전에.</div>
+  <div class="ft-r">법무법인 여온<br>02-318-2981</div>
+</footer>
+
+
+<script>
+/* NAV */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('on',scrollY>60),{passive:true});
+
+/* Reveal */
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:.05,rootMargin:'0px 0px -8px 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* Sticky */
+const sk=document.getElementById('sticky');
+window.addEventListener('scroll',()=>sk.classList.toggle('show',scrollY>innerHeight*.38),{passive:true});
+
+/* 시계 */
+const pad=n=>String(n).padStart(2,'0');
+function tick(){const n=new Date();const el=document.getElementById('sk-clock');if(el)el.textContent=`${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`}
+setInterval(tick,1000);tick();
+
+/* 긴박도 버튼 */
+document.querySelectorAll('.urg-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.urg-btn').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+  });
+});
+
+/* 패럴랙스 — 데스크탑만 */
+if(matchMedia('(hover:hover)').matches){
+  window.addEventListener('scroll',()=>{
+    const t=document.querySelector('.h-msg');
+    if(t)t.style.transform=`translateY(${scrollY*.04}px)`;
+  },{passive:true});
+}
+</script>
+</body>
+</html>
